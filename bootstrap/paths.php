@@ -1,5 +1,11 @@
 <?php
 
+// aju
+const BUCKET_NAME = 'your-bucket-name';
+$storage_path = "gs://" . BUCKET_NAME . "/storage";
+
+mkdir($storage_path);
+
 return array(
 
 	/*
@@ -52,6 +58,8 @@ return array(
 	|
 	*/
 
-	'storage' => __DIR__.'/../app/storage',
+	// aju
+	// 'storage' => __DIR__.'/../app/storage',
+	'storage' => $storage_path,
 
 );

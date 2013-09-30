@@ -1,5 +1,39 @@
 <?php
 
+## CHANGE THESE
+const LOCAL_DATABASE = 'xxx';
+const LOCAL_USERNAME = 'xxx';
+const LOCAL_PASSWORD = 'xxx';
+const CLOUD_DATABASE = 'xxx';
+const CLOUD_USERNAME = 'root';
+const CLOUD_PASSWORD = '';
+const CLOUD_INSTANCE = '/cloudsql/your-project-name:your-instance-name';
+
+if(isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'],'Google App Engine') !== false) {
+  $mysql_array = array(
+	    'driver'    => 'mysql',
+	    'unix_socket' => CLOUD_INSTANCE,
+	    'host'      => '',
+	    'database'  => CLOUD_DATABASE,
+	    'username'  => CLOUD_USERNAME,
+		'password'  => CLOUD_PASSWORD,
+	    'charset'   => 'utf8',
+	    'collation' => 'utf8_unicode_ci',
+	    'prefix'    => '',
+	);
+} else {
+  $mysql_array = array(
+		'driver'    => 'mysql',
+		'host'      => 'localhost',
+		'database'  => LOCAL_DATABASE,
+		'username'  => LOCAL_USERNAME,
+		'password'  => LOCAL_PASSWORD,
+		'charset'   => 'utf8',
+		'collation' => 'utf8_unicode_ci',
+		'prefix'    => '',
+	);
+}
+
 return array(
 
 	/*
@@ -52,16 +86,7 @@ return array(
 			'prefix'   => '',
 		),
 
-		'mysql' => array(
-			'driver'    => 'mysql',
-			'host'      => '127.0.0.1',
-			'database'  => 'laravel4_testing',
-			'username'  => 'root',
-			'password'  => '',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
+		'mysql' => $mysql_array,
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',
